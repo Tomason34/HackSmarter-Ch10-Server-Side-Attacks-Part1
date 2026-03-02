@@ -1,0 +1,12 @@
+Target: 10.1.82.253
+
+Command:
+sudo nmap -n -Pn --top-ports 1000 10.1.82.253
+
+Result:
+22/tcp open  ssh
+80/tcp open  http
+
+Note:
+Web application identified as Flask-based badge generator.
+SSTI vulnerability confirmed via template evaluation.
