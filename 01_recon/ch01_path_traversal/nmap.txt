@@ -1,0 +1,12 @@
+Target: 10.0.30.19
+
+Command:
+sudo nmap -n -Pn --top-ports 1000 10.0.30.19
+
+Result:
+22/tcp open  ssh
+80/tcp open  http
+
+Service Enumeration:
+Werkzeug httpd 3.1.5 (Python 3.12.3)
+Title: Hack Smarter Portal
