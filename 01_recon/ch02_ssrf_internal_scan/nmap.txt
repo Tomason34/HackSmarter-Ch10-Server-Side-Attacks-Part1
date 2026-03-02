@@ -1,0 +1,12 @@
+Target: 10.0.30.19
+
+Command:
+sudo nmap -n -Pn --top-ports 1000 10.0.30.19
+
+Result:
+22/tcp open  ssh
+80/tcp open  http
+
+Note:
+This baseline confirms only 22/80 are externally exposed.
+Internal-only ports were identified later via SSRF testing.
