@@ -1,0 +1,19 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.swp
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+
+# Nmap raw outputs (if added later)
+*.xml
+*.gnmap
+
+# Sensitive files
+*.ovpn
+creds.txt
